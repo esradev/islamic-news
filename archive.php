@@ -42,20 +42,19 @@
                     </a>
                 <?php endforeach; ?>
             </div>
-            <div class="flex items-center gap-4">
+            <!-- <div class="flex items-center gap-4">
                 <form method="get" action="<?php echo esc_url(home_url('/')); ?>" class="relative">
                     <input type="text" name="s" placeholder="Search articles..." value="<?php the_search_query(); ?>" class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-islamic-green focus:border-transparent">
                     <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </form>
-                <!-- Sorting dropdown (not functional, for UI only) -->
                 <select class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-islamic-green">
                     <option>Latest First</option>
                     <option>Oldest First</option>
                     <option>Most Popular</option>
                 </select>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

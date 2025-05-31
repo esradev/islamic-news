@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tailwindcss -i ./src/index.css -o ./build/index.css --minify",
     "start": "tailwindcss -i ./src/index.css -o ./build/index.css --watch --minify",
-    "plugin-zip": "wp-scripts plugin-zip",
+    "zip": "wp-scripts plugin-zip",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
@@ -30,5 +30,8 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
     "tailwindcss": "^3.4.11"
+  },
+  "dependencies": {
+    "@wordpress/scripts": "^30.17.0"
   }
 }
