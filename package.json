@@ -11,15 +11,14 @@
   "files": [
     "assets",
     "build",
-    "inc",
     "plugin-update-checker",
     "src",
-    "templates",
+    "archive.php",
     "footer.php",
+    "front-page.php",
     "functions.php",
     "header.php",
     "index.php",
-    "README.md",
     "screenshot.png",
     "single.php",
     "style.css"
