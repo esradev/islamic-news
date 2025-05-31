@@ -53,7 +53,7 @@
                         <?php if ($posts[2]['has_thumb']): ?>
                             <img src="<?php echo esc_url($posts[2]['thumbnail']); ?>" class="w-full h-64 object-cover" alt="<?php echo esc_attr($posts[2]['title']); ?>">
                         <?php else: ?>
-                            <img src="/placeholder.svg?height=256&width=512" class="w-full h-64 object-cover" alt="<?php echo esc_attr($posts[2]['title']); ?>">
+                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php echo esc_attr($posts[2]['title']); ?>">
                         <?php endif; ?>
                     </a>
                     <div class="p-6 flex-1 flex flex-col">
@@ -73,7 +73,7 @@
                         <?php if ($posts[$i]['has_thumb']): ?>
                             <img src="<?php echo esc_url($posts[$i]['thumbnail']); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
                         <?php else: ?>
-                            <img src="/placeholder.svg?height=120&width=240" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
+                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
                         <?php endif; ?>
                     </a>
                     <div class="p-4 flex-1 flex flex-col">
@@ -179,7 +179,7 @@
                                 <?php if (has_post_thumbnail()) : ?>
                                     <?php the_post_thumbnail('large', ['class' => 'w-full h-64 object-cover']); ?>
                                 <?php else : ?>
-                                    <img src="/placeholder.svg?height=300&width=600" alt="<?php the_title_attribute(); ?>" class="w-full h-64 object-cover">
+                                    <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-64 object-cover">
                                 <?php endif; ?>
                                 <div class="p-6">
                                     <div class="flex items-center mb-3">
@@ -233,7 +233,7 @@
                                         <?php if (has_post_thumbnail()) : ?>
                                             <?php the_post_thumbnail('medium', ['class' => 'w-full h-48 md:h-full object-cover']); ?>
                                         <?php else : ?>
-                                            <img src="/placeholder.svg?height=200&width=300" alt="<?php the_title_attribute(); ?>" class="w-full h-48 md:h-full object-cover">
+                                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-48 md:h-full object-cover">
                                         <?php endif; ?>
                                     </div>
                                     <div class="p-6 md:w-2/3">
@@ -346,7 +346,7 @@
                                         <?php if (has_post_thumbnail()) : ?>
                                             <?php the_post_thumbnail([80, 60], ['class' => 'w-20 h-15 object-cover rounded']); ?>
                                         <?php else : ?>
-                                            <img src="/placeholder.svg?height=60&width=80" alt="<?php the_title_attribute(); ?>" class="w-20 h-15 object-cover rounded">
+                                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-20 h-15 object-cover rounded">
                                         <?php endif; ?>
                                         <div class="flex-1">
                                             <h4 class="text-sm font-semibold text-gray-900 hover:text-islamic-green transition duration-300">

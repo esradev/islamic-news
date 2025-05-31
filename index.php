@@ -1,12 +1,115 @@
 <?php get_header(); ?>
 
-<!-- Page Header -->
-<section class="bg-gradient-to-r from-islamic-green to-green-800 text-white py-16">
+<!-- Tail Grid Random Posts Header -->
+<section class="py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4"><?php bloginfo('name'); ?></h2>
-            <p class="text-xl text-green-100"><?php bloginfo('description'); ?></p>
+        <?php
+        $random_query = new WP_Query([
+            'posts_per_page' => 5,
+            'orderby' => 'rand',
+            'ignore_sticky_posts' => 1,
+        ]);
+        $posts = [];
+        if ($random_query->have_posts()) :
+            while ($random_query->have_posts()) : $random_query->the_post();
+                $posts[] = [
+                    'title' => get_the_title(),
+                    'permalink' => get_permalink(),
+                    'excerpt' => wp_trim_words(get_the_excerpt(), 18),
+                    'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'large'),
+                    'has_thumb' => has_post_thumbnail(),
+                ];
+            endwhile;
+            wp_reset_postdata();
+        endif;
+        ?>
+        <?php if (count($posts) === 5): ?>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            <!-- Left column: 2 small posts -->
+            <div class="flex flex-col gap-6">
+                <?php foreach ([0,1] as $i): ?>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
+                    <a href="<?php echo esc_url($posts[$i]['permalink']); ?>">
+                        <?php if ($posts[$i]['has_thumb']): ?>
+                            <img src="<?php echo esc_url($posts[$i]['thumbnail']); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
+                        <?php else: ?>
+                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
+                        <?php endif; ?>
+                    </a>
+                    <div class="p-4 flex-1 flex flex-col">
+                        <h3 class="text-base font-bold text-gray-900 mb-1 hover:text-islamic-green transition">
+                            <a href="<?php echo esc_url($posts[$i]['permalink']); ?>"><?php echo esc_html($posts[$i]['title']); ?></a>
+                        </h3>
+                        <p class="text-gray-600 text-xs mb-2 flex-1"><?php echo esc_html($posts[$i]['excerpt']); ?></p>
+                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto">Read More →</a>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <!-- Middle column: 1 large post -->
+            <div class="flex flex-col justify-center">
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden flex flex-col h-full">
+                    <a href="<?php echo esc_url($posts[2]['permalink']); ?>">
+                        <?php if ($posts[2]['has_thumb']): ?>
+                            <img src="<?php echo esc_url($posts[2]['thumbnail']); ?>" class="w-full h-64 object-cover" alt="<?php echo esc_attr($posts[2]['title']); ?>">
+                        <?php else: ?>
+                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" class="w-full h-64 object-cover" alt="<?php echo esc_attr($posts[2]['title']); ?>">
+                        <?php endif; ?>
+                    </a>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 hover:text-islamic-green transition">
+                            <a href="<?php echo esc_url($posts[2]['permalink']); ?>"><?php echo esc_html($posts[2]['title']); ?></a>
+                        </h2>
+                        <p class="text-gray-600 text-sm mb-4 flex-1"><?php echo esc_html($posts[2]['excerpt']); ?></p>
+                        <a href="<?php echo esc_url($posts[2]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-sm mt-auto">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Right column: 2 small posts -->
+            <div class="flex flex-col gap-6">
+                <?php foreach ([3,4] as $i): ?>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
+                    <a href="<?php echo esc_url($posts[$i]['permalink']); ?>">
+                        <?php if ($posts[$i]['has_thumb']): ?>
+                            <img src="<?php echo esc_url($posts[$i]['thumbnail']); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
+                        <?php else: ?>
+                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
+                        <?php endif; ?>
+                    </a>
+                    <div class="p-4 flex-1 flex flex-col">
+                        <h3 class="text-base font-bold text-gray-900 mb-1 hover:text-islamic-green transition">
+                            <a href="<?php echo esc_url($posts[$i]['permalink']); ?>"><?php echo esc_html($posts[$i]['title']); ?></a>
+                        </h3>
+                        <p class="text-gray-600 text-xs mb-2 flex-1"><?php echo esc_html($posts[$i]['excerpt']); ?></p>
+                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto">Read More →</a>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
+        <?php else: ?>
+            <!-- fallback: simple grid if not enough posts -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <?php foreach ($posts as $p): ?>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+                        <a href="<?php echo esc_url($p['permalink']); ?>">
+                            <?php if ($p['has_thumb']): ?>
+                                <img src="<?php echo esc_url($p['thumbnail']); ?>" class="w-full h-48 object-cover" alt="<?php echo esc_attr($p['title']); ?>">
+                            <?php else: ?>
+                                <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')) ?>" class="w-full h-48 object-cover" alt="<?php echo esc_attr($p['title']); ?>">
+                            <?php endif; ?>
+                        </a>
+                        <div class="p-5 flex flex-col flex-1">
+                            <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-islamic-green transition">
+                                <a href="<?php echo esc_url($p['permalink']); ?>"><?php echo esc_html($p['title']); ?></a>
+                            </h3>
+                            <p class="text-gray-600 text-sm mb-4 flex-1"><?php echo esc_html($p['excerpt']); ?></p>
+                            <a href="<?php echo esc_url($p['permalink']); ?>" class="mt-auto text-islamic-green hover:text-islamic-gold font-medium text-sm">Read More →</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -76,7 +179,7 @@
                                 <?php if (has_post_thumbnail()) : ?>
                                     <?php the_post_thumbnail('large', ['class' => 'w-full h-64 object-cover']); ?>
                                 <?php else : ?>
-                                    <img src="/placeholder.svg?height=300&width=600" alt="<?php the_title_attribute(); ?>" class="w-full h-64 object-cover">
+                                    <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-64 object-cover">
                                 <?php endif; ?>
                                 <div class="p-6">
                                     <div class="flex items-center mb-3">
@@ -130,7 +233,7 @@
                                         <?php if (has_post_thumbnail()) : ?>
                                             <?php the_post_thumbnail('medium', ['class' => 'w-full h-48 md:h-full object-cover']); ?>
                                         <?php else : ?>
-                                            <img src="/placeholder.svg?height=200&width=300" alt="<?php the_title_attribute(); ?>" class="w-full h-48 md:h-full object-cover">
+                                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-48 md:h-full object-cover">
                                         <?php endif; ?>
                                     </div>
                                     <div class="p-6 md:w-2/3">
@@ -224,14 +327,14 @@
 
             <!-- Sidebar -->
             <div class="lg:col-span-1">
-                <div class="space-y-8">
+                <div class="space-y-8 sticky top-10">
                     <!-- Popular Posts -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-4">Popular Posts</h3>
                         <div class="space-y-4">
                             <?php
                             $popular = new WP_Query([
-                                'posts_per_page' => 3,
+                                'posts_per_page' => 5,
                                 'meta_key' => 'post_views_count',
                                 'orderby' => 'meta_value_num',
                                 'order' => 'DESC',
@@ -243,7 +346,7 @@
                                         <?php if (has_post_thumbnail()) : ?>
                                             <?php the_post_thumbnail([80, 60], ['class' => 'w-20 h-15 object-cover rounded']); ?>
                                         <?php else : ?>
-                                            <img src="/placeholder.svg?height=60&width=80" alt="<?php the_title_attribute(); ?>" class="w-20 h-15 object-cover rounded">
+                                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-20 h-15 object-cover rounded">
                                         <?php endif; ?>
                                         <div class="flex-1">
                                             <h4 class="text-sm font-semibold text-gray-900 hover:text-islamic-green transition duration-300">
@@ -275,7 +378,7 @@
                     </div>
 
                     <!-- Newsletter Signup -->
-                    <div class="bg-islamic-green text-white rounded-lg p-6">
+                    <!-- <div class="bg-islamic-green text-white rounded-lg p-6">
                         <h3 class="text-xl font-bold mb-4">Stay Updated</h3>
                         <p class="text-green-100 mb-4">Subscribe to our newsletter for weekly insights and updates</p>
                         <div class="space-y-3">
@@ -284,10 +387,10 @@
                                 <button class="w-full bg-islamic-gold hover:bg-yellow-600 text-white py-2 rounded font-semibold transition duration-300" type="submit">Subscribe</button>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Tags -->
-                    <div class="bg-white rounded-lg shadow-md p-6">
+                    <!-- <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-4">Popular Tags</h3>
                         <div class="flex flex-wrap gap-2">
                             <?php
@@ -296,7 +399,7 @@
                                 <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>" class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-islamic-green hover:text-white transition duration-300 cursor-pointer"><?php echo esc_html($tag->name); ?></a>
                             <?php endforeach; ?>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
