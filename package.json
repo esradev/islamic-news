@@ -1,0 +1,34 @@
+{
+  "name": "shams-theme",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tailwindcss -i ./src/index.css -o ./build/index.css --minify",
+    "start": "tailwindcss -i ./src/index.css -o ./build/index.css --watch --minify",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "assets",
+    "build",
+    "inc",
+    "plugin-update-checker",
+    "src",
+    "templates",
+    "footer.php",
+    "functions.php",
+    "header.php",
+    "index.php",
+    "README.md",
+    "screenshot.png",
+    "single.php",
+    "style.css"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "tailwindcss": "^3.4.11"
+  }
+}
