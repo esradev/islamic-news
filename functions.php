@@ -68,3 +68,10 @@ function get_svg_icon($name, $id, $class = '') {
       return '<!-- SVG Icon not found: ' . esc_html($name) . ' -->';
   }
 }
+
+// hide admin bar for non-admin users
+function hide_admin_bar_for_non_admins() {
+    if (!current_user_can('administrator')) {
+        show_admin_bar(false);
+    }
+}

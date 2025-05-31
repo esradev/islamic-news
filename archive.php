@@ -1,11 +1,23 @@
 <?php get_header(); ?>
 
 <!-- Page Header -->
-<section class="bg-gradient-to-r from-islamic-green to-green-800 text-white py-16">
+<section class="bg-gradient-to-r from-islamic-green to-green-800 text-white py-20 shadow-lg rounded-b-3xl mb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4"><?php bloginfo('name'); ?></h2>
-            <p class="text-xl text-green-100"><?php bloginfo('description'); ?></p>
+            <h1 class="text-3xl md:text-3xl font-extrabold mb-3 tracking-tight drop-shadow-lg">
+                <?php
+                if (is_category()) {
+                    single_cat_title('', true);
+                } else {
+                    the_archive_title();
+                }
+                ?>
+            </h1>
+            <?php if (get_the_archive_description()) : ?>
+                <div class="text-lg md:text-xl text-green-100/90 font-light mx-auto mt-2 drop-shadow">
+                    <?php the_archive_description(); ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>

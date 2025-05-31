@@ -33,20 +33,20 @@
                         }
                     }
                 ?>
-                <div class="relative group">
-                    <button class="flex items-center px-3 py-2 rounded-md border border-gray-200 bg-white text-sm font-semibold text-gray-700 hover:bg-gray-100 transition focus:outline-none" id="lang-switcher-btn">
+                <div class="relative group" id="lang-switcher-group">
+                    <button class="flex items-center px-3 py-2 rounded-md border border-gray-200 bg-white text-sm font-semibold text-gray-700 hover:bg-gray-100 transition focus:outline-none" id="lang-switcher-btn" type="button" tabindex="0">
                         <?php if (!empty($current_lang['country_flag_url'])): ?>
-                            <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['native_name']); ?>" class="w-5 h-5 ml-2">
+                            <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['native_name']); ?>" class="w-5 h-5 mr-2">
                         <?php endif; ?>
                         <span><?php echo esc_html($current_lang['native_name']); ?></span>
-                        <svg class="w-4 h-4 ml-1 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-4 h-4 mr-1 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    <div class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto z-50">
+                    <div id="lang-switcher-dropdown" class="absolute right-0 mt-0 pt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible transition z-50">
                         <?php foreach ( $languages as $lang ) :
                             if ( !$lang['active'] ) : ?>
                                 <a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">
                                     <?php if (!empty($lang['country_flag_url'])): ?>
-                                        <img src="<?php echo esc_url($lang['country_flag_url']); ?>" alt="<?php echo esc_attr($lang['native_name']); ?>" class="w-5 h-5 ml-2">
+                                        <img src="<?php echo esc_url($lang['country_flag_url']); ?>" alt="<?php echo esc_attr($lang['native_name']); ?>" class="w-5 h-5 mr-2">
                                     <?php endif; ?>
                                     <span><?php echo esc_html($lang['native_name']); ?></span>
                                 </a>
@@ -161,7 +161,7 @@
                         </p>
 
                         <p id="no-results-message" class="hidden text-red-600 items-center">
-                            <?php echo get_svg_icon('exclamation-triangle', '', 'h-6 w-6 text-red-600 inline-block ml-2'); ?>
+                            <?php echo get_svg_icon('exclamation-triangle', '', 'h-6 w-6 text-red-600 inline-block mr-2'); ?>
                             <span>نتیجه ای مرتبط با جستجوی شما یافت نشد.</span>
                         </p>
 
@@ -213,7 +213,7 @@
   <template id="li-template">
     <li class="flex flex-col">
       <a class="flex items-center text-base text-indigo-600 hover:text-indigo-700" href="#">
-        <?php echo get_svg_icon('document-text', '', 'h-5 w-5 text-indigo-600 ml-2'); ?>
+        <?php echo get_svg_icon('document-text', '', 'h-5 w-5 text-indigo-600 mr-2'); ?>
         <span class="title-text">نمونه مطلب #1</span>
       </a>
     </li>
