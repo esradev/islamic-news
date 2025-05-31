@@ -119,15 +119,46 @@
                         <!-- Pagination -->
                         <div class="flex justify-center mt-12">
                             <?php
-                            echo paginate_links([
+                            $pagination = paginate_links([
                                 'total' => $wp_query->max_num_pages,
+                                'current' => max(1, get_query_var('paged')),
                                 'prev_text' => 'Previous',
                                 'next_text' => 'Next',
                                 'mid_size' => 2,
-                                'type' => 'list',
-                                'before_page_number' => '<span class="px-3 py-2">',
-                                'after_page_number' => '</span>',
+                                'type' => 'array',
                             ]);
+                            if ($pagination) {
+                                echo '<nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">';
+                                echo '<ul class="flex gap-2">';
+                                foreach ($pagination as $link) {
+                                    // Add Tailwind classes to <a> and <span> elements
+                                    if (strpos($link, 'current') !== false) {
+                                        // Current page
+                                        $link = str_replace(
+                                            '<span',
+                                            '<span class="z-10 bg-islamic-green border-islamic-green text-white relative inline-flex items-center px-4 py-2 border text-sm font-semibold rounded"',
+                                            $link
+                                        );
+                                    } elseif (strpos($link, 'next') !== false || strpos($link, 'prev') !== false) {
+                                        // Next/Prev
+                                        $link = str_replace(
+                                            '<a',
+                                            '<a class="relative inline-flex items-center px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-100 rounded transition"',
+                                            $link
+                                        );
+                                    } else {
+                                        // Other page numbers
+                                        $link = str_replace(
+                                            '<a',
+                                            '<a class="relative inline-flex items-center px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-islamic-green hover:text-white rounded transition"',
+                                            $link
+                                        );
+                                    }
+                                    echo '<li>' . $link . '</li>';
+                                }
+                                echo '</ul>';
+                                echo '</nav>';
+                            }
                             ?>
                         </div>
                     <?php else : ?>

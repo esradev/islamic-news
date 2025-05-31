@@ -55,15 +55,15 @@
                     </div>
                 </div>
                 <?php endif; ?>
-            </div>
+
             <!-- Language Switcher End -->
 
-            <div class="flex items-center">
-                <div class="flex-shrink-0">
-                  <a href="<?php echo esc_url(home_url('/')); ?>">
-                    <h1 class="text-2xl font-bold text-islamic-green"><?php bloginfo('name'); ?></h1>
-                  </a>
-                </div>
+
+              <div class="flex-shrink-0">
+                <a href="<?php echo esc_url(home_url('/')); ?>">
+                  <h1 class="text-2xl font-bold text-islamic-green"><?php bloginfo('name'); ?></h1>
+                </a>
+              </div>
             </div>
 
             <div class="flex h-16 justify-between">
