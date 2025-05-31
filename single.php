@@ -53,9 +53,9 @@
                     echo '<span class="bg-islamic-green text-white px-4 py-2 rounded-full text-sm font-medium">' . esc_html( $categories[0]->name ) . '</span>';
                 }
                 ?>
-                <span class="text-gray-500 text-sm ml-4"><?php echo get_the_date(); ?></span>
-                <span class="text-gray-500 text-sm ml-4">•</span>
-                <span class="text-gray-500 text-sm ml-4">
+                <span class="text-gray-500 text-sm my-4"><?php echo get_the_date(); ?></span>
+                <span class="text-gray-500 text-sm my-4">•</span>
+                <span class="text-gray-500 text-sm my-4">
                     <?php
                     $word_count = str_word_count( strip_tags( get_the_content() ) );
                     $reading_time = ceil( $word_count / 200 );
@@ -111,10 +111,14 @@
         <!-- Featured Image -->
         <?php if ( has_post_thumbnail() ) : ?>
             <div class="mb-8">
-                <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-96 object-cover rounded-lg shadow-lg' ) ); ?>
-                <?php if ( get_post(get_post_thumbnail_id())->post_excerpt ) : ?>
-                    <p class="text-sm text-gray-500 mt-2 text-center"><?php echo esc_html( get_post(get_post_thumbnail_id())->post_excerpt ); ?></p>
-                <?php endif; ?> 
+            <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-96 object-cover rounded-lg shadow-lg' ) ); ?>
+            <?php if ( get_post(get_post_thumbnail_id())->post_excerpt ) : ?>
+                <p class="text-sm text-gray-500 mt-2 text-center"><?php echo esc_html( get_post(get_post_thumbnail_id())->post_excerpt ); ?></p>
+            <?php endif; ?> 
+            </div>
+        <?php else : ?>
+            <div class="mb-8">
+            <img src="<?php echo esc_url( get_theme_file_uri('/assets/images/post-image-callback.jpg') ); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-96 object-cover rounded-lg shadow-lg">
             </div>
         <?php endif; ?>
 
@@ -139,7 +143,7 @@
         <?php endif; ?>
 
         <!-- Share Article -->
-        <div class="mt-8 pt-6 border-t border-gray-200">
+        <!-- <div class="mt-8 pt-6 border-t border-gray-200">
             <h3 class="text-lg font-semibold text-gray-900 mb-3">Share this article:</h3>
             <div class="flex space-x-4">
                 <?php
@@ -147,19 +151,19 @@
                 $post_title = urlencode( get_the_title() );
                 ?>
                 <a href="https://twitter.com/intent/tweet?url=<?php echo $post_url; ?>&text=<?php echo $post_title; ?>" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 flex items-center" target="_blank" rel="noopener">
-                    <!-- ...Twitter SVG... -->Twitter
+                    Twitter
                 </a>
                 <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $post_url; ?>" class="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition duration-300 flex items-center" target="_blank" rel="noopener">
-                    <!-- ...Facebook SVG... -->Facebook
+                    Facebook
                 </a>
                 <a href="https://wa.me/?text=<?php echo $post_title . '%20' . $post_url; ?>" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300 flex items-center" target="_blank" rel="noopener">
-                    <!-- ...WhatsApp SVG... -->WhatsApp
+                    WhatsApp
                 </a>
                 <a href="mailto:?subject=<?php echo $post_title; ?>&body=<?php echo $post_url; ?>" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center">
-                    <!-- ...Share SVG... -->Share
+                    Share
                 </a>
             </div>
-        </div>
+        </div> -->
     </div>
 </article>
 
@@ -181,7 +185,7 @@
                         <?php if ( has_post_thumbnail() ) : ?>
                             <?php the_post_thumbnail( 'medium', array( 'class' => 'w-full h-48 object-cover' ) ); ?>
                         <?php else : ?>
-                            <img src="/placeholder.svg?height=200&width=400" alt="<?php the_title_attribute(); ?>" class="w-full h-48 object-cover">
+                            <img src="<?php echo esc_url( get_theme_file_uri('/assets/images/post-image-callback.jpg') ); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-48 object-cover">
                         <?php endif; ?>
                         <div class="p-6">
                             <div class="flex items-center mb-3">
@@ -191,7 +195,7 @@
                                     echo '<span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">' . esc_html( $cat[0]->name ) . '</span>';
                                 }
                                 ?>
-                                <span class="text-gray-500 text-sm ml-3"><?php echo get_the_date(); ?></span>
+                                <span class="text-gray-500 text-sm my-3"><?php echo get_the_date(); ?></span>
                             </div>
                             <h3 class="text-lg font-semibold text-gray-900 mb-3 hover:text-islamic-green transition duration-300">
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -204,18 +208,6 @@
                 wp_reset_postdata();
             endif;
             ?>
-        </div>
-    </div>
-</section>
-
-<!-- Newsletter Section -->
-<section class="py-16 bg-islamic-green text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h3 class="text-3xl md:text-4xl font-bold mb-4">Stay Connected</h3>
-        <p class="text-xl mb-8 text-green-100">Subscribe to our newsletter for weekly insights and updates</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-islamic-gold">
-            <button class="bg-islamic-gold hover:bg-yellow-600 text-white px-8 py-3 rounded-lg font-semibold transition duration-300">Subscribe</button>
         </div>
     </div>
 </section>

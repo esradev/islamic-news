@@ -82,3 +82,13 @@ function hide_admin_bar_for_non_admins() {
         show_admin_bar(false);
     }
 }
+
+// Add default image for posts without featured image
+function set_default_post_thumbnail($post_id) {
+    if (has_post_thumbnail($post_id)) {
+        return;
+    }
+
+    $default_image = get_theme_file_uri('/assets/images/post-image-callback.jpg'); // Path to your default image
+    set_post_thumbnail($post_id, $default_image);
+}

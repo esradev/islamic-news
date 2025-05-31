@@ -184,9 +184,9 @@
                                 <div class="p-6">
                                     <div class="flex items-center mb-3">
                                         <span class="bg-islamic-green text-white px-3 py-1 rounded-full text-sm font-medium">Featured</span>
-                                        <span class="text-gray-500 text-sm ml-3"><?php echo get_the_date(); ?></span>
-                                        <span class="text-gray-500 text-sm ml-3">•</span>
-                                        <span class="text-gray-500 text-sm ml-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
+                                        <span class="text-gray-500 text-sm my-3"><?php echo get_the_date(); ?></span>
+                                        <span class="text-gray-500 text-sm my-3">•</span>
+                                        <span class="text-gray-500 text-sm my-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
                                     </div>
                                     <h2 class="text-2xl font-bold text-gray-900 mb-3 hover:text-islamic-green transition duration-300">
                                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -253,9 +253,9 @@
                                                 echo '<span class="' . esc_attr($color) . ' text-white px-3 py-1 rounded-full text-sm font-medium">' . esc_html($cat->name) . '</span>';
                                             }
                                             ?>
-                                            <span class="text-gray-500 text-sm ml-3"><?php echo get_the_date(); ?></span>
-                                            <span class="text-gray-500 text-sm ml-3">•</span>
-                                            <span class="text-gray-500 text-sm ml-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
+                                            <span class="text-gray-500 text-sm my-3"><?php echo get_the_date(); ?></span>
+                                            <span class="text-gray-500 text-sm my-3">•</span>
+                                            <span class="text-gray-500 text-sm my-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
                                         </div>
                                         <h3 class="text-xl font-semibold text-gray-900 mb-3 hover:text-islamic-green transition duration-300">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
