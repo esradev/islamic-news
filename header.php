@@ -17,6 +17,47 @@
     <nav class="bg-white shadow-lg sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div class="flex justify-between items-center h-16">
+            <!-- Language Switcher Start -->
+            <div class="flex items-center gap-4">
+                <?php 
+                $languages = array();
+                if ( function_exists( 'icl_get_languages' ) ) {
+                    $languages = icl_get_languages();
+                }
+                if ( !empty( $languages ) ) :
+                    $current_lang = '';
+                    foreach ( $languages as $lang ) {
+                        if ( $lang['active'] ) {
+                            $current_lang = $lang;
+                            break;
+                        }
+                    }
+                ?>
+                <div class="relative group">
+                    <button class="flex items-center px-3 py-2 rounded-md border border-gray-200 bg-white text-sm font-semibold text-gray-700 hover:bg-gray-100 transition focus:outline-none" id="lang-switcher-btn">
+                        <?php if (!empty($current_lang['country_flag_url'])): ?>
+                            <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['native_name']); ?>" class="w-5 h-5 ml-2">
+                        <?php endif; ?>
+                        <span><?php echo esc_html($current_lang['native_name']); ?></span>
+                        <svg class="w-4 h-4 ml-1 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto z-50">
+                        <?php foreach ( $languages as $lang ) :
+                            if ( !$lang['active'] ) : ?>
+                                <a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">
+                                    <?php if (!empty($lang['country_flag_url'])): ?>
+                                        <img src="<?php echo esc_url($lang['country_flag_url']); ?>" alt="<?php echo esc_attr($lang['native_name']); ?>" class="w-5 h-5 ml-2">
+                                    <?php endif; ?>
+                                    <span><?php echo esc_html($lang['native_name']); ?></span>
+                                </a>
+                            <?php endif;
+                        endforeach; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+            <!-- Language Switcher End -->
+
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                   <a href="<?php echo esc_url(home_url('/')); ?>">
