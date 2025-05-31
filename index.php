@@ -41,7 +41,7 @@
                             <a href="<?php echo esc_url($posts[$i]['permalink']); ?>"><?php echo esc_html($posts[$i]['title']); ?></a>
                         </h3>
                         <p class="text-gray-600 text-xs mb-2 flex-1"><?php echo esc_html($posts[$i]['excerpt']); ?></p>
-                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto">Read More →</a>
+                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto"><?php echo islamic_news_read_more_text(); ?> →</a>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -53,7 +53,7 @@
                         <?php if ($posts[2]['has_thumb']): ?>
                             <img src="<?php echo esc_url($posts[2]['thumbnail']); ?>" class="w-full h-64 object-cover" alt="<?php echo esc_attr($posts[2]['title']); ?>">
                         <?php else: ?>
-                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" class="w-full h-64 object-cover" alt="<?php echo esc_attr($posts[2]['title']); ?>">
+                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php echo esc_attr($posts[2]['title']); ?>">
                         <?php endif; ?>
                     </a>
                     <div class="p-6 flex-1 flex flex-col">
@@ -61,7 +61,7 @@
                             <a href="<?php echo esc_url($posts[2]['permalink']); ?>"><?php echo esc_html($posts[2]['title']); ?></a>
                         </h2>
                         <p class="text-gray-600 text-sm mb-4 flex-1"><?php echo esc_html($posts[2]['excerpt']); ?></p>
-                        <a href="<?php echo esc_url($posts[2]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-sm mt-auto">Read More →</a>
+                        <a href="<?php echo esc_url($posts[2]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-sm mt-auto"><?php echo islamic_news_read_more_text(); ?> →</a>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                             <a href="<?php echo esc_url($posts[$i]['permalink']); ?>"><?php echo esc_html($posts[$i]['title']); ?></a>
                         </h3>
                         <p class="text-gray-600 text-xs mb-2 flex-1"><?php echo esc_html($posts[$i]['excerpt']); ?></p>
-                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto">Read More →</a>
+                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto"><?php echo islamic_news_read_more_text(); ?> →</a>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -104,7 +104,7 @@
                                 <a href="<?php echo esc_url($p['permalink']); ?>"><?php echo esc_html($p['title']); ?></a>
                             </h3>
                             <p class="text-gray-600 text-sm mb-4 flex-1"><?php echo esc_html($p['excerpt']); ?></p>
-                            <a href="<?php echo esc_url($p['permalink']); ?>" class="mt-auto text-islamic-green hover:text-islamic-gold font-medium text-sm">Read More →</a>
+                            <a href="<?php echo esc_url($p['permalink']); ?>" class="mt-auto text-islamic-green hover:text-islamic-gold font-medium text-sm"><?php echo islamic_news_read_more_text(); ?> →</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -118,7 +118,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row justify-between items-center gap-4">
             <div class="flex flex-wrap gap-2">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="bg-islamic-green text-white px-4 py-2 rounded-full text-sm font-medium<?php if (!is_category()) echo ' bg-islamic-green'; ?>">All Posts</a>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="bg-islamic-green text-white px-4 py-2 rounded-full text-sm font-medium<?php if (!is_category()) echo ' bg-islamic-green'; ?>"><?php echo islamic_news_translate('All Posts'); ?></a>
                 <?php
                 // Replace with your desired category IDs 
                 $category_ids = [135, 149, 50]; // TODO: get these from a settings page or options
@@ -182,10 +182,10 @@
                                 <?php endif; ?>
                                 <div class="p-6">
                                     <div class="flex items-center mb-3">
-                                        <span class="bg-islamic-green text-white px-3 py-1 rounded-full text-sm font-medium">Featured</span>
-                                        <span class="text-gray-500 text-sm ml-3"><?php echo get_the_date(); ?></span>
-                                        <span class="text-gray-500 text-sm ml-3">•</span>
-                                        <span class="text-gray-500 text-sm ml-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
+                                        <span class="bg-islamic-green text-white px-3 py-1 rounded-full text-sm font-medium"><?php echo islamic_news_translate('Featured'); ?></span>
+                                        <span class="text-gray-500 text-sm my-3"><?php echo get_the_date(); ?></span>
+                                        <span class="text-gray-500 text-sm my-3">•</span>
+                                        <span class="text-gray-500 text-sm my-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
                                     </div>
                                     <h2 class="text-2xl font-bold text-gray-900 mb-3 hover:text-islamic-green transition duration-300">
                                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -199,7 +199,7 @@
                                                 <p class="text-sm text-gray-500"><?php echo get_the_author_meta('description'); ?></p>
                                             </div>
                                         </div>
-                                        <a href="<?php the_permalink(); ?>" class="bg-islamic-green hover:bg-green-800 text-white px-4 py-2 rounded-lg font-medium transition duration-300">Read Article</a>
+                                        <a href="<?php the_permalink(); ?>" class="bg-islamic-green hover:bg-green-800 text-white px-4 py-2 rounded-lg font-medium transition duration-300"><?php echo islamic_news_read_article_text(); ?></a>
                                     </div>
                                 </div>
                             </article>
@@ -252,9 +252,9 @@
                                                 echo '<span class="' . esc_attr($color) . ' text-white px-3 py-1 rounded-full text-sm font-medium">' . esc_html($cat->name) . '</span>';
                                             }
                                             ?>
-                                            <span class="text-gray-500 text-sm ml-3"><?php echo get_the_date(); ?></span>
-                                            <span class="text-gray-500 text-sm ml-3">•</span>
-                                            <span class="text-gray-500 text-sm ml-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
+                                            <span class="text-gray-500 text-sm my-3"><?php echo get_the_date(); ?></span>
+                                            <span class="text-gray-500 text-sm my-3">•</span>
+                                            <span class="text-gray-500 text-sm my-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
                                         </div>
                                         <h3 class="text-xl font-semibold text-gray-900 mb-3 hover:text-islamic-green transition duration-300">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -265,7 +265,7 @@
                                                 <?php echo get_avatar(get_the_author_meta('ID'), 32, '', '', ['class' => 'w-8 h-8 rounded-full mr-2']); ?>
                                                 <span class="text-sm text-gray-700"><?php the_author(); ?></span>
                                             </div>
-                                            <a href="<?php the_permalink(); ?>" class="text-islamic-green hover:text-islamic-gold font-medium">Read More →</a>
+                                            <a href="<?php the_permalink(); ?>" class="text-islamic-green hover:text-islamic-gold font-medium"><?php echo islamic_news_read_more_text(); ?> →</a>
                                         </div>
                                     </div>
                                 </div>
@@ -317,7 +317,7 @@
                             ?>
                         </div>
                     <?php else : ?>
-                        <p>No posts found.</p>
+                        <p><?php echo islamic_news_translate('No posts found.'); ?></p>
                     <?php endif;
                     wp_reset_postdata();
                     ?>
@@ -329,7 +329,7 @@
                 <div class="space-y-8 sticky top-10">
                     <!-- Popular Posts -->
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Popular Posts</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4"><?php echo islamic_news_translate('Popular Posts'); ?></h3>
                         <div class="space-y-4">
                             <?php
                             $popular = new WP_Query([
@@ -363,7 +363,7 @@
 
                     <!-- Categories -->
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Categories</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4"><?php echo islamic_news_translate('Categories'); ?></h3>
                         <div class="space-y-2">
                             <?php
                             $cats = get_categories(['hide_empty' => true]);

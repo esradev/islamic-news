@@ -92,3 +92,61 @@ function set_default_post_thumbnail($post_id) {
     $default_image = get_theme_file_uri('/assets/images/post-image-callback.jpg'); // Path to your default image
     set_post_thumbnail($post_id, $default_image);
 }
+
+// Helper: Get translated "Read More" and "Read Article" button text
+function islamic_news_read_more_text() {
+    $locale = get_locale();
+    switch ($locale) {
+        case 'ar':
+            return 'اقرأ المزيد';
+        case 'fa_IR':
+            return 'بیشتر بخوانید';
+        // Add more languages as needed
+        default:
+            return 'Read More';
+    }
+}
+function islamic_news_read_article_text() {
+    $locale = get_locale();
+    switch ($locale) {
+        case 'ar':
+            return 'اقرأ المقال';
+        case 'fa_IR':
+            return 'مطالعه مقاله';
+        // Add more languages as needed
+        default:
+            return 'Read Article';
+    }
+}
+
+// Helper: Translate static words based on language
+function islamic_news_translate($key) {
+    $locale = get_locale();
+    $translations = [
+        'All Posts' => [
+            'ar' => 'جميع المقالات',
+            'fa_IR' => 'همه پست‌ها',
+        ],
+        'Featured' => [
+            'ar' => 'مميز',
+            'fa_IR' => 'ویژه',
+        ],
+        'Popular Posts' => [
+            'ar' => 'المشاركات الشائعة',
+            'fa_IR' => 'پست‌های محبوب',
+        ],
+        'Categories' => [
+            'ar' => 'التصنيفات',
+            'fa_IR' => 'دسته‌بندی‌ها',
+        ],
+        'No posts found.' => [
+            'ar' => 'لم يتم العثور على مقالات.',
+            'fa_IR' => 'هیچ پستی یافت نشد.',
+        ],
+        // Add more static words and languages as needed
+    ];
+    if (isset($translations[$key][$locale])) {
+        return $translations[$key][$locale];
+    }
+    return $key;
+}
