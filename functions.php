@@ -47,8 +47,10 @@ function islamic_news_enqueue_scripts() {
         'posts_per_page' => -1,
       ));
 
-    wp_enqueue_style('islamic-news-style',  get_theme_file_uri('/build/index.css'), [], '1.0.0', 'all');
-    wp_enqueue_script('islamic-news-script', get_theme_file_uri('/src/index.js'), [], '1.0.0', true);
+    $theme = wp_get_theme();
+    $version = $theme->get('Version');
+    wp_enqueue_style('islamic-news-style', get_theme_file_uri('/build/index.css'), [], $version, 'all');
+    wp_enqueue_script('islamic-news-script', get_theme_file_uri('/src/index.js'), [], $version, true);
 
     wp_localize_script('islamic-news-script', 'ourData', array(
         'root_url' => get_site_url(),
