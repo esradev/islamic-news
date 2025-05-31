@@ -118,7 +118,15 @@
                         }
                         }
 
-                        $menu = wp_get_nav_menu_items('main-menu');
+                        // Get menu items based on menu location 'primary'
+                        $locations = get_nav_menu_locations();
+                        $menu = [];
+                        if (isset($locations['primary'])) {
+                            $menu_obj = wp_get_nav_menu_object($locations['primary']);
+                            if ($menu_obj) {
+                                $menu = wp_get_nav_menu_items($menu_obj->term_id);
+                            }
+                        }
                         $submenu_items = [];
 
                         // Collect submenu items
