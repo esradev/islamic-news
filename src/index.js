@@ -177,7 +177,13 @@
   }
 
   async function getResultsData(term) {
-    const resultsPromise = await fetch(ourData.root_url + `/wp-json/wp/v2/search?search=${term}`)
+    // Encode the search term to support non-ASCII (e.g., Persian/Arabic) characters
+    const encodedTerm = encodeURIComponent(term)
+    // Get current language code from hidden input
+    const langInput = document.getElementById('current-lang-code')
+    const lang = langInput ? langInput.value : 'fa'
+    // Add lang param for WPML/Polylang compatibility
+    const resultsPromise = await fetch(ourData.root_url + `/wp-json/wp/v2/search?search=${encodedTerm}&lang=${lang}`)
     const results = await resultsPromise.json()
     return results
   }

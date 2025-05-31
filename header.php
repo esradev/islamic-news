@@ -168,11 +168,12 @@
                         <div class="flex justify-between bg-white border-gray-200 border drop-shadow-md">
                         <input id="search-field" placeholder="عبارت مد نظر خود را جستجو کنید..." type="text"
                                                                 class="flex-1 text-xl text-gray-500 py-5 px-6 outline-none">
-                        <div class="flex items-center bg-indigo-600 hover:bg-indigo-700 cursor-pointer px-5">
+                        <div class="flex items-center bg-islamic-green hover:bg-islamic-green cursor-pointer px-5">
                             <?php echo get_svg_icon('search', '', 'h-6 w-6 text-white'); ?>
                         </div>
                         </div>
-
+                        <!-- Add current language code for JS -->
+                        <input type="hidden" id="current-lang-code" value="<?php echo esc_attr(function_exists('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fa'); ?>">
                         <div class="mt-7 py-7 px-8 bg-white border-gray-200 drop-shadow-md">
                         <p id="default-message" class="text-gray-400 text-xl p-5 text-center">نتایج در این جا نشان داده می شوند.
                         </p>
@@ -182,8 +183,8 @@
                             <span>نتیجه ای مرتبط با جستجوی شما یافت نشد.</span>
                         </p>
 
-                        <div id="loading-icon" class="hidden text-center text-indigo-500">
-                            <?php echo get_svg_icon('arrow-path', '', 'inline-block animate-spin h-8 w-8 text-indigo-500'); ?>
+                        <div id="loading-icon" class="hidden text-center text-islamic-green">
+                            <?php echo get_svg_icon('arrow-path', '', 'inline-block animate-spin h-8 w-8 text-islamic-green'); ?>
                         </div>
 
                         <ul id="results-area" class="hidden space-y-4">
@@ -229,8 +230,8 @@
 
   <template id="li-template">
     <li class="flex flex-col">
-      <a class="flex items-center text-base text-indigo-600 hover:text-indigo-700" href="#">
-        <?php echo get_svg_icon('document-text', '', 'h-5 w-5 text-indigo-600 my-2'); ?>
+      <a class="flex items-center text-base text-islamic-green hover:text-islamic-green" href="#">
+        <?php echo get_svg_icon('document-text', '', 'h-5 w-5 text-islamic-green my-2'); ?>
         <span class="title-text">نمونه مطلب #1</span>
       </a>
     </li>
