@@ -1,5 +1,12 @@
 <?php
-// functions.php
+require get_template_directory() . '/plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+    'http://wpstorm.ir/update-server/?action=get_metadata&slug=islamic-news',
+    __FILE__, //Full path to the main plugin file or functions.php.
+    'islamic-news',
+);
 
 // Theme setup
 function islamic_news_setup() {
