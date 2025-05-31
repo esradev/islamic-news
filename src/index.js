@@ -186,13 +186,16 @@
   document.addEventListener('DOMContentLoaded', function() {
     const group = document.getElementById('lang-switcher-group');
     const dropdown = document.getElementById('lang-switcher-dropdown');
-    group.addEventListener('mouseenter', function() {
+    const btn = document.getElementById('lang-switcher-btn');
+    if (group && dropdown && btn && !btn.disabled) {
+      group.addEventListener('mouseenter', function() {
         dropdown.classList.remove('opacity-0', 'invisible');
         dropdown.classList.add('opacity-100', 'visible');
-    });
-    group.addEventListener('mouseleave', function() {
+      });
+      group.addEventListener('mouseleave', function() {
         dropdown.classList.remove('opacity-100', 'visible');
         dropdown.classList.add('opacity-0', 'invisible');
-    });
+      });
+    }
   });
 })();

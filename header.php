@@ -29,6 +29,9 @@
                 if ( function_exists( 'icl_get_languages' ) ) {
                     $languages = icl_get_languages();
                 }
+                error_log( 'Languages: ' . print_r( $languages, true ) );
+                error_log('languages count: ' . count( $languages ) );
+
                 if ( !empty( $languages ) ) :
                     $current_lang = '';
                     foreach ( $languages as $lang ) {
@@ -39,7 +42,22 @@
                     }
                 ?>
                 <div class="relative group" id="lang-switcher-group">
-                    <button class="flex items-center px-3 py-2 rounded-md border border-gray-200 bg-white text-sm font-semibold text-gray-700 hover:bg-gray-100 transition focus:outline-none" id="lang-switcher-btn" type="button" tabindex="0" aria-haspopup="true" aria-expanded="false">
+                    <button
+                        id="lang-switcher-btn"
+                        type="button"
+                        tabindex="0"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        <?php if (count($languages) <= 1) : ?>
+                            disabled aria-disabled="true" title="نسخه دیگری از زبان وجود ندارد"
+                        <?php endif; ?>
+                        class="flex items-center px-3 py-2 rounded-md border border-gray-200 bg-white text-sm font-semibold transition focus:outline-none
+                        <?php if (count($languages) <= 1) : ?>
+                            opacity-60 cursor-not-allowed text-gray-400
+                        <?php else : ?>
+                            text-gray-700 hover:bg-gray-100
+                        <?php endif; ?>"
+                    >
                         <?php if (!empty($current_lang['country_flag_url'])): ?>
                             <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['native_name']); ?>" class="w-5 h-5 my-2">
                         <?php endif; ?>
