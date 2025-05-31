@@ -12,14 +12,16 @@
 
     <?php wp_head(); ?>
 </head>
-<body class="bg-gray-50 text-gray-900" <?php body_class(); ?>>
+<body class="bg-gray-50 text-gray-900 text-right dir-rtl" <?php body_class(); ?>>
     <!-- Navigation -->
     <nav class="bg-white shadow-lg sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div class="flex justify-between items-center h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
+                  <a href="<?php echo esc_url(home_url('/')); ?>">
                     <h1 class="text-2xl font-bold text-islamic-green"><?php bloginfo('name'); ?></h1>
+                  </a>
                 </div>
             </div>
 
