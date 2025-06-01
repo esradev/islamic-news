@@ -17,7 +17,7 @@
 </head>
 <body class="bg-gray-50 text-gray-900 text-right dir-rtl" <?php body_class(); ?>>
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50" 
+    <nav class="bg-gradient-to-r from-white to-green-50 shadow-md sticky top-0 z-50 border-b-2 border-islamic-green/20" 
          x-data="{ 
             mobileMenuOpen: false, 
             activeDropdown: null,
@@ -31,12 +31,11 @@
          }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div class="flex justify-between items-center h-16 flex-row-reverse">
-            <!-- Search button End -->
-            <!-- Language Switcher Start -->
+            <!-- Search button and Language Switcher -->
             <div class="flex items-center gap-4">
                 <!-- Search Button -->
-                <button id="search-icon" class="flex items-center justify-center p-2 md:justify-end">
-                <?php echo get_svg_icon('search', '', 'h-6 w-6 text-gray-700'); ?>
+                <button id="search-icon" class="flex items-center justify-center p-2 md:justify-end hover:bg-green-50 rounded-full transition-colors">
+                <?php echo get_svg_icon('search', '', 'h-6 w-6 text-islamic-green'); ?>
                 </button>
                 <?php 
                 $languages = array();
@@ -65,25 +64,25 @@
                         <?php if (count($languages) <= 1) : ?>
                             disabled aria-disabled="true" title="نسخه دیگری از زبان وجود ندارد"
                         <?php endif; ?>
-                        class="flex items-center px-3 py-2 rounded-md border border-gray-200 bg-white text-sm font-semibold transition focus:outline-none
+                        class="flex items-center px-3 py-2 rounded-md border border-green-100 bg-white text-sm font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-islamic-green/30
                         <?php if (count($languages) <= 1) : ?>
                             opacity-60 cursor-not-allowed text-gray-400
                         <?php else : ?>
-                            text-gray-700 hover:bg-gray-100
+                            text-gray-700 hover:bg-green-50 hover:border-islamic-green/50
                         <?php endif; ?>"
                     >
                         <?php if (!empty($current_lang['country_flag_url'])): ?>
-                            <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['native_name']); ?>" class="w-5 h-5 my-2">
+                            <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['native_name']); ?>" class="w-5 h-5 my-2 mr-2 rounded-sm">
                         <?php endif; ?>
                         <span><?php echo esc_html($current_lang['native_name']); ?></span>
-                        <svg class="w-4 h-4 my-1 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-4 h-4 my-1 text-islamic-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    <div id="lang-switcher-dropdown" class="absolute z-50 left-0 mt-0 pt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible transition">
+                    <div id="lang-switcher-dropdown" class="absolute z-50 left-0 mt-0 pt-2 w-36 bg-white border border-green-100 rounded-md shadow-lg opacity-0 invisible transition duration-200">
                         <?php foreach ( $languages as $lang ) :
                             if ( !$lang['active'] ) : ?>
-                                <a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">
+                                <a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-islamic-green rounded-md transition duration-150">
                                     <?php if (!empty($lang['country_flag_url'])): ?>
-                                        <img src="<?php echo esc_url($lang['country_flag_url']); ?>" alt="<?php echo esc_attr($lang['native_name']); ?>" class="w-5 h-5 my-2">
+                                        <img src="<?php echo esc_url($lang['country_flag_url']); ?>" alt="<?php echo esc_attr($lang['native_name']); ?>" class="w-5 h-5 my-2 mr-2 rounded-sm">
                                     <?php endif; ?>
                                     <span><?php echo esc_html($lang['native_name']); ?></span>
                                 </a>
@@ -100,7 +99,7 @@
                      <!-- Mobile menu button -->
                     <div class="flex items-center md:hidden">
                         <button id="mobile-menu-button" type="button"
-                                class="text-gray-700 hover:text-islamic-green focus:outline-none focus:text-islamic-green"
+                                class="p-2 text-islamic-green hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-islamic-green/30 rounded-md transition-colors"
                                 aria-controls="mobile-menu" 
                                 aria-expanded="false"
                                 @click="mobileMenuOpen = !mobileMenuOpen">
@@ -115,10 +114,15 @@
                     </div>
 
                     <div class="flex px-2 md:px-0">
-                    <div class="hidden md:items-center md:my-4 md:flex md:gap-2">
-                        <div class="flex-shrink-0">
-                            <a href="<?php echo esc_url(home_url('/')); ?>">
-                                <h1 class="text-2xl font-bold text-islamic-green"><?php bloginfo('name'); ?></h1>
+                    <div class="hidden md:items-center md:my-4 md:flex md:gap-3">
+                        <div class="flex-shrink-0 ml-4">
+                            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center group">
+                                <div class="bg-islamic-green text-white p-1 rounded-md group-hover:bg-islamic-green/90 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                    </svg>
+                                </div>
+                                <h1 class="text-xl font-bold text-islamic-green mr-2 group-hover:text-islamic-green/80 transition-colors"><?php bloginfo('name'); ?></h1>
                             </a>
                         </div>
                         <?php
@@ -128,14 +132,19 @@
                         if (isset($submenu_items[$parent_id])) {
                             echo '<div id="dropdown-menu-' . $parent_id . '" 
                                   x-show="activeDropdown == ' . $parent_id . '" 
-                                  x-transition 
+                                  x-transition:enter="transition ease-out duration-200"
+                                  x-transition:enter-start="opacity-0 transform scale-95"
+                                  x-transition:enter-end="opacity-100 transform scale-100"
+                                  x-transition:leave="transition ease-in duration-150"
+                                  x-transition:leave-start="opacity-100 transform scale-100"
+                                  x-transition:leave-end="opacity-0 transform scale-95"
                                   @click.outside="if (!$event.target.closest(\'[id^=menu-button-]\')) activeDropdown = null" 
-                                  class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
+                                  class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white shadow-xl ring-1 ring-islamic-green/5 focus:outline-none border border-green-100 divide-y divide-green-100" 
                                   role="menu" 
                                   tabindex="-1" 
                                   x-cloak>';
                             foreach ($submenu_items[$parent_id] as $submenu_item) {
-                            echo '<a href="' . $submenu_item->url . '" class="text-gray-800 block p-3 text-sm" role="menuitem" tabindex="-1">' . $submenu_item->title . '</a>';
+                            echo '<a href="' . $submenu_item->url . '" class="text-gray-700 block py-3 px-4 text-sm hover:bg-green-50 hover:text-islamic-green transition-colors first:rounded-t-md last:rounded-b-md" role="menuitem" tabindex="-1">' . $submenu_item->title . '</a>';
                             // Check if the submenu item has further submenu items
                             output_submenu_items($submenu_items, $submenu_item->ID);
                             }
@@ -176,9 +185,9 @@
                                   @click="toggleDropdown(' . $item->ID . ')" 
                                   :aria-expanded="activeDropdown == ' . $item->ID . ' ? \'true\' : \'false\'" 
                                   aria-haspopup="true" 
-                                  class="inline-flex w-full justify-center gap-x-1.5 bg-white px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 text-gray-700 hover:text-islamic-green px-3 py-2 rounded-md text-sm font-medium">' . $item->title . '<svg class="-my-1 h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></button>';
+                                  class="inline-flex items-center justify-center gap-x-1.5 px-3 py-2 text-base font-semibold text-gray-700 hover:text-islamic-green rounded-md transition-colors duration-200 hover:bg-green-50 relative after:absolute after:bottom-0 after:right-0 after:left-0 after:h-0.5 after:bg-islamic-green after:transform after:scale-x-0 hover:after:scale-x-100 after:transition-transform">' . $item->title . '<svg class="h-5 w-5 text-islamic-green/70" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></button>';
                             } else {
-                            echo '<a href="' . $item->url . '" class="inline-flex w-full justify-center gap-x-1.5 bg-white px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 text-gray-700 hover:text-islamic-green px-3 py-2 rounded-md text-sm font-medium">' . $item->title . '</a>';
+                            echo '<a href="' . $item->url . '" class="inline-flex items-center justify-center px-3 py-2 text-base font-semibold text-gray-700 hover:text-islamic-green rounded-md transition-colors duration-200 hover:bg-green-50 relative after:absolute after:bottom-0 after:right-0 after:left-0 after:h-0.5 after:bg-islamic-green after:transform after:scale-x-0 hover:after:scale-x-100 after:transition-transform">' . $item->title . '</a>';
                             }
 
                             // Output dropdown menu if exists
@@ -190,8 +199,6 @@
                         }
                         }
                         ?>
-
-
                     </div>
                     </div>
 
@@ -236,40 +243,58 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="md:hidden overflow-y-auto max-h-[80vh]" 
+    <div class="md:hidden overflow-y-auto max-h-[80vh] bg-white border-t border-green-100 shadow-inner" 
          id="mobile-menu" 
          x-show="mobileMenuOpen" 
          x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 transform scale-95"
-         x-transition:enter-end="opacity-100 transform scale-100"
+         x-transition:enter-start="opacity-0 transform -translate-y-4"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
          x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 transform scale-100"
-         x-transition:leave-end="opacity-0 transform scale-95">
-      <div class="space-y-1 pb-3 pt-2">
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform -translate-y-4"
+         x-cloak>
+      <div class="py-3 px-4 divide-y divide-green-100">
         <?php
         foreach ($menu as $item) {
           if ($item->menu_item_parent == 0) {
             // Check if the current item has submenu items
             $has_submenu = isset($submenu_items[$item->ID]);
 
-            echo '<div class="relative block text-right min-w-full">';
+            echo '<div class="relative block text-right py-2">';
 
             // Output as button only if it has submenu items
-            echo '<a href="' . $item->url . '" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-bold text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">' . $item->title . '</a>';
-
+            echo '<a href="' . $item->url . '" class="block py-2 px-3 text-base font-bold text-gray-700 hover:text-islamic-green rounded-md bg-white hover:bg-green-50 transition-colors duration-200 border-r-4 border-transparent hover:border-islamic-green flex justify-between items-center">' 
+                 . $item->title;
+            
+            if ($has_submenu) {
+              echo '<svg class="h-5 w-5 text-islamic-green/70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>';
+            }
+            
+            echo '</a>';
 
             // Output dropdown menu if exists for mobile
             if ($has_submenu) {
-              echo '<div id="dropdown-menu-' . $item->ID . '" class="text-gray-800 block p-3 text-lg my-2"  role="menu" aria-orientation="vertical" aria-labelledby="menu-button-' . $item->ID . '" tabindex="-1">';
+              echo '<div id="dropdown-menu-' . $item->ID . '" class="pr-6 mt-1 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-button-' . $item->ID . '" tabindex="-1">';
               foreach ($submenu_items[$item->ID] as $submenu_item) {
-                echo '<a href="' . $submenu_item->url . '" class="text-gray-800 block p-3 text-lg" role="menuitem" tabindex="-1">' . $submenu_item->title . '</a>';
+                echo '<a href="' . $submenu_item->url . '" class="block py-2 px-3 text-sm text-gray-600 hover:text-islamic-green bg-green-50/50 hover:bg-green-50 rounded-md transition-colors" role="menuitem" tabindex="-1">' . $submenu_item->title . '</a>';
               }
+              echo '</div>';
             }
 
             echo '</div>';
           }
         }
         ?>
+      </div>
+      <!-- Decorative footer for mobile menu -->
+      <div class="mt-4 py-3 px-4 bg-green-50/50 border-t border-green-100 flex justify-between items-center">
+        <div class="text-sm text-gray-500">
+          <?php echo get_svg_icon('clock', '', 'h-4 w-4 text-islamic-green inline-block ml-1'); ?>
+          <?php echo date_i18n('l, j F Y'); ?>
+        </div>
+        <a href="#" class="text-islamic-green hover:text-islamic-green/80 transition-colors">
+          <?php echo get_svg_icon('arrow-up', '', 'h-5 w-5'); ?>
+        </a>
       </div>
     </div>
   </nav>
