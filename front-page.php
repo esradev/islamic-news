@@ -78,7 +78,7 @@ endif;
                 <?php echo get_svg_icon('chevron-right', '', 'h-6 w-6 text-gray-100'); ?>
             </button>
             <!-- Slider Indicators -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-x-2">
                 <template x-for="(slide, index) in slides" :key="index">
                     <button @click="currentSlide = index" :class="currentSlide === index ? 'bg-white' : 'bg-white bg-opacity-50'" class="w-3 h-3 rounded-full"></button>
                 </template>
@@ -208,9 +208,9 @@ endif;
                                 <div class="p-6">
                                     <div class="flex items-center mb-3">
                                         <span class="bg-islamic-green text-white px-3 py-1 rounded-full text-sm font-medium"><?php echo islamic_news_translate('Featured'); ?></span>
-                                        <span class="text-gray-500 text-sm my-3"><?php echo get_the_date(); ?></span>
-                                        <span class="text-gray-500 text-sm my-3">•</span>
-                                        <span class="text-gray-500 text-sm my-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
+                                        <span class="text-gray-500 text-sm mx-3"><?php echo get_the_date(); ?></span>
+                                        <span class="text-gray-500 text-sm mx-3">•</span>
+                                        <span class="text-gray-500 text-sm mx-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
                                     </div>
                                     <h2 class="text-2xl font-bold text-gray-900 mb-3 hover:text-islamic-green transition duration-300">
                                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -218,7 +218,7 @@ endif;
                                     <p class="text-gray-600 mb-4"><?php echo get_the_excerpt(); ?></p>
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center">
-                                            <?php echo get_avatar(get_the_author_meta('ID'), 40, '', '', ['class' => 'w-10 h-10 rounded-full mr-3']); ?>
+                                            <?php echo get_avatar(get_the_author_meta('ID'), 40, '', '', ['class' => 'w-10 h-10 rounded-full mx-3']); ?>
                                             <div>
                                                 <p class="text-sm font-medium text-gray-900"><?php the_author(); ?></p>
                                                 <p class="text-sm text-gray-500"><?php echo get_the_author_meta('description'); ?></p>
@@ -251,17 +251,21 @@ endif;
                     $main_query = new WP_Query($args);
                     if ($main_query->have_posts()) :
                         while ($main_query->have_posts()) : $main_query->the_post(); ?>
-                            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                            <article class="bg-white rounded-xl shadow-sm hover:shadow-md overflow-hidden transition-all duration-300 border border-gray-100">
                                 <div class="md:flex">
-                                    <div class="md:w-1/3">
+                                    <div class="md:w-2/5 relative overflow-hidden">
                                         <?php if (has_post_thumbnail()) : ?>
-                                            <?php the_post_thumbnail('medium', ['class' => 'w-full h-48 md:h-full object-cover']); ?>
+                                            <div class="h-full transform hover:scale-105 transition duration-500">
+                                                <?php the_post_thumbnail('medium', ['class' => 'w-full h-56 md:h-full object-cover']); ?>
+                                            </div>
                                         <?php else : ?>
-                                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-48 md:h-full object-cover">
+                                            <div class="h-full transform hover:scale-105 transition duration-500">
+                                                <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-56 md:h-full object-cover">
+                                            </div>
                                         <?php endif; ?>
                                     </div>
-                                    <div class="p-6 md:w-2/3">
-                                        <div class="flex items-center mb-3">
+                                    <div class="p-6 md:p-8 md:w-3/5">
+                                        <div class="flex flex-wrap items-center gap-3 mb-4">
                                             <?php
                                             $cats = get_the_category();
                                             if ($cats) {
@@ -274,23 +278,40 @@ endif;
                                                     'Culture' => 'bg-green-500'
                                                 ];
                                                 $color = isset($cat_colors[$cat->name]) ? $cat_colors[$cat->name] : 'bg-gray-400';
-                                                echo '<span class="' . esc_attr($color) . ' text-white px-3 py-1 rounded-full text-sm font-medium">' . esc_html($cat->name) . '</span>';
+                                                echo '<span class="' . esc_attr($color) . ' text-white px-3 py-1 rounded-full text-xs font-medium">' . esc_html($cat->name) . '</span>';
                                             }
                                             ?>
-                                            <span class="text-gray-500 text-sm my-3"><?php echo get_the_date(); ?></span>
-                                            <span class="text-gray-500 text-sm my-3">•</span>
-                                            <span class="text-gray-500 text-sm my-3"><?php echo islamic_news_reading_time(get_the_content()); ?> min read</span>
+                                            <div class="flex items-center text-gray-400 text-xs">
+                                                <span class="flex items-center">
+                                                    <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                    </svg>
+                                                    <?php echo get_the_date(); ?>
+                                                </span>
+                                                <span class="mx-2">•</span>
+                                                <span class="flex items-center">
+                                                    <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                    <?php echo islamic_news_reading_time(get_the_content()); ?> min read
+                                                </span>
+                                            </div>
                                         </div>
-                                        <h3 class="text-xl font-semibold text-gray-900 mb-3 hover:text-islamic-green transition duration-300">
+                                        <h3 class="text-xl font-bold text-gray-800 mb-3 hover:text-islamic-green transition duration-300 leading-snug">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                         </h3>
-                                        <p class="text-gray-600 mb-4"><?php echo get_the_excerpt(); ?></p>
-                                        <div class="flex items-center justify-between">
+                                        <p class="text-gray-600 mb-5 line-clamp-2"><?php echo get_the_excerpt(); ?></p>
+                                        <div class="flex items-center justify-between pt-2 border-t border-gray-100">
                                             <div class="flex items-center">
-                                                <?php echo get_avatar(get_the_author_meta('ID'), 32, '', '', ['class' => 'w-8 h-8 rounded-full mr-2']); ?>
-                                                <span class="text-sm text-gray-700"><?php the_author(); ?></span>
+                                                <?php echo get_avatar(get_the_author_meta('ID'), 32, '', '', ['class' => 'w-8 h-8 rounded-full mx-3 ring-2 ring-gray-100']); ?>
+                                                <span class="text-sm font-medium text-gray-700"><?php the_author(); ?></span>
                                             </div>
-                                            <a href="<?php the_permalink(); ?>" class="text-islamic-green hover:text-islamic-gold font-medium"><?php echo islamic_news_read_more_text(); ?> →</a>
+                                            <a href="<?php the_permalink(); ?>" class="inline-flex items-center text-islamic-green hover:text-islamic-gold font-medium text-sm group">
+                                                <?php echo islamic_news_read_more_text(); ?>
+                                                <svg class="w-4 h-4 mx-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -353,8 +374,20 @@ endif;
             <div class="lg:col-span-1">
                 <div class="space-y-8 sticky top-10">
                     <!-- Popular Posts -->
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4"><?php echo islamic_news_translate('Popular Posts'); ?></h3>
+                    <div class="bg-white rounded-lg shadow-md p-6 relative overflow-hidden">
+                        <!-- Islamic Geometric Pattern Overlay -->
+                        <div class="absolute inset-0 opacity-5 pointer-events-none bg-repeat" style="background-image: url('<?php echo esc_url(get_theme_file_uri('/assets/images/islamic-pattern.png')); ?>'); background-size: 200px;"></div>
+                        
+                        <!-- Islamic Decorative Border -->
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-islamic-green/20 via-islamic-gold/60 to-islamic-green/20"></div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-5 flex items-center">
+                            <span class="inline-block w-5 h-5 mx-2 text-islamic-green">
+                                <?php echo get_svg_icon('heart', '', 'w-6 h-6'); ?>
+                            </span>
+                            <?php echo islamic_news_translate('Popular Posts'); ?>
+                        </h3>
+                        
                         <div class="space-y-4">
                             <?php
                             $popular = new WP_Query([
@@ -366,17 +399,31 @@ endif;
                             ]);
                             if ($popular->have_posts()) :
                                 while ($popular->have_posts()) : $popular->the_post(); ?>
-                                    <div class="flex items-start space-x-3">
-                                        <?php if (has_post_thumbnail()) : ?>
-                                            <?php the_post_thumbnail([80, 60], ['class' => 'w-20 h-15 object-cover rounded']); ?>
-                                        <?php else : ?>
-                                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-20 h-15 object-cover rounded">
-                                        <?php endif; ?>
+                                    <div class="flex items-start gap-x-4 group p-3 rounded-lg transition-all duration-300 hover:bg-green-50/70 border-l-2 border-transparent hover:border-islamic-green">
+                                        <div class="relative overflow-hidden rounded-lg">
+                                            <?php if (has_post_thumbnail()) : ?>
+                                                <div class="transform transition duration-500 group-hover:scale-105">
+                                                    <?php the_post_thumbnail([80, 60], ['class' => 'w-20 h-15 object-cover rounded-lg shadow-sm']); ?>
+                                                </div>
+                                            <?php else : ?>
+                                                <div class="transform transition duration-500 group-hover:scale-105">
+                                                    <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php the_title_attribute(); ?>" class="w-20 h-15 object-cover rounded-lg shadow-sm">
+                                                </div>
+                                            <?php endif; ?>
+                                            <div class="absolute top-0 right-0 bg-islamic-green text-white text-xs px-1.5 py-0.5 rounded-bl-lg">
+                                                <?php echo islamic_news_reading_time(get_the_content()); ?>m
+                                            </div>
+                                        </div>
                                         <div class="flex-1">
-                                            <h4 class="text-sm font-semibold text-gray-900 hover:text-islamic-green transition duration-300">
-                                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                            <h4 class="text-sm font-semibold text-gray-900 leading-tight group-hover:text-islamic-green transition duration-300">
+                                                <a href="<?php the_permalink(); ?>" class="block"><?php the_title(); ?></a>
                                             </h4>
-                                            <p class="text-xs text-gray-500 mt-1"><?php echo get_the_date(); ?></p>
+                                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                                <svg class="w-3 h-3 mr-1 text-islamic-green" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                <span><?php echo get_the_date(); ?></span>
+                                            </div>
                                         </div>
                                     </div>
                                 <?php endwhile;
@@ -387,15 +434,35 @@ endif;
                     </div>
 
                     <!-- Categories -->
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4"><?php echo islamic_news_translate('Categories'); ?></h3>
-                        <div class="space-y-2">
+                    <div class="bg-white rounded-lg shadow-md p-6 relative overflow-hidden">
+                        <!-- Islamic Geometric Pattern Overlay -->
+                        <div class="absolute inset-0 opacity-5 pointer-events-none bg-repeat" style="background-image: url('<?php echo esc_url(get_theme_file_uri('/assets/images/islamic-pattern.png')); ?>'); background-size: 200px;"></div>
+                        
+                        <!-- Islamic Decorative Border -->
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-islamic-green/20 via-islamic-gold/60 to-islamic-green/20"></div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-5 flex items-center">
+                            <span class="inline-block w-5 h-5 mx-2 text-islamic-green">
+                                <?php echo get_svg_icon('tag', '', 'w-6 h-6'); ?>
+                            </span>
+                            <?php echo islamic_news_translate('Categories'); ?>
+                        </h3>
+                        
+                        <div class="space-y-2.5">
                             <?php
                             $cats = get_categories(['hide_empty' => true]);
                             foreach ($cats as $cat) : ?>
-                                <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="flex justify-between items-center text-gray-700 hover:text-islamic-green transition duration-300">
-                                    <span><?php echo esc_html($cat->name); ?></span>
-                                    <span class="text-sm text-gray-500"><?php echo $cat->count; ?></span>
+                                <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" 
+                                   class="flex justify-between items-center p-2.5 rounded-md hover:bg-green-50 border-r-0 border-t-0 border-b-0 border-l-2 border-transparent hover:border-islamic-green group transition-all duration-300">
+                                    <span class="flex items-center text-gray-700 group-hover:text-islamic-green font-medium">
+                                        <svg class="w-3.5 h-3.5 mx-2 text-islamic-green/70 group-hover:text-islamic-green transition-all" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <?php echo esc_html($cat->name); ?>
+                                    </span>
+                                    <span class="flex items-center justify-center text-xs text-white bg-islamic-green rounded-full w-6 h-6 group-hover:bg-islamic-gold transition-colors duration-300">
+                                        <?php echo $cat->count; ?>
+                                    </span>
                                 </a>
                             <?php endforeach; ?>
                         </div>
