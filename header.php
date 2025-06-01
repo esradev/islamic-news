@@ -204,34 +204,36 @@
 
                     <!-- Search Overlay -->
                     <div id="search-overlay"
-                    class="transition scale-125 opacity-0 duration-300 ease-in-out flex justify-center invisible bg-white/90 backdrop-blur-sm fixed inset-0 z-50">
+                    class="transition scale-125 opacity-0 duration-300 ease-in-out flex justify-center invisible bg-gradient-to-br from-white/95 to-green-50/95 backdrop-blur-sm fixed inset-0 z-50">
                     <div class="max-w-4xl w-full pt-4 sm:pt-16 px-4 sm:px-0 overflow-x-hidden">
                         <div class="flex justify-end mb-3">
-                        <?php echo get_svg_icon('x-circle', 'close-overlay-icon', 'text-red-400 hover:text-red-600 cursor-pointer h-8 w-8'); ?>
+                        <?php echo get_svg_icon('x-circle', 'close-overlay-icon', 'text-red-500 hover:text-red-600 cursor-pointer h-8 w-8 transition-colors drop-shadow-sm'); ?>
                         </div>
-                        <div class="flex justify-between bg-white border-gray-200 border drop-shadow-md">
+                        <div class="flex justify-between bg-white border-islamic-green/20 border-2 rounded-lg drop-shadow-lg overflow-hidden">
                         <input id="search-field" placeholder="عبارت مد نظر خود را جستجو کنید..." type="text"
-                                                                class="flex-1 text-xl text-gray-500 py-5 px-6 outline-none">
-                        <div class="flex items-center bg-islamic-green hover:bg-islamic-green cursor-pointer px-5">
+                                class="flex-1 text-xl text-gray-700 py-5 px-6 outline-none focus:bg-green-50/30 transition-colors">
+                        <div class="flex items-center bg-islamic-green hover:bg-islamic-green/90 cursor-pointer px-5 transition-colors">
                             <?php echo get_svg_icon('search', '', 'h-6 w-6 text-white'); ?>
                         </div>
                         </div>
                         <!-- Add current language code for JS -->
                         <input type="hidden" id="current-lang-code" value="<?php echo esc_attr(function_exists('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fa'); ?>">
-                        <div class="mt-7 py-7 px-8 bg-white border-gray-200 drop-shadow-md">
-                        <p id="default-message" class="text-gray-400 text-xl p-5 text-center">نتایج در این جا نشان داده می شوند.
+                        <div class="mt-7 py-7 px-8 bg-white border-gray-200 border rounded-lg drop-shadow-lg relative before:absolute before:top-0 before:right-0 before:w-2 before:h-full before:bg-islamic-green/80 before:rounded-tr-lg before:rounded-br-lg">
+                        <p id="default-message" class="text-gray-400 text-xl p-5 text-center flex flex-col items-center">
+                            <?php echo get_svg_icon('document-search', '', 'h-12 w-12 text-islamic-green/40 mb-3'); ?>
+                            نتایج در این جا نشان داده می شوند.
                         </p>
 
-                        <p id="no-results-message" class="hidden text-red-600 items-center">
-                            <?php echo get_svg_icon('exclamation-triangle', '', 'h-6 w-6 text-red-600 inline-block my-2'); ?>
+                        <p id="no-results-message" class="hidden text-red-600 items-center justify-center p-5 text-center">
+                            <?php echo get_svg_icon('exclamation-triangle', '', 'h-8 w-8 text-red-500 block mx-auto mb-3'); ?>
                             <span>نتیجه ای مرتبط با جستجوی شما یافت نشد.</span>
                         </p>
 
-                        <div id="loading-icon" class="hidden text-center text-islamic-green">
-                            <?php echo get_svg_icon('arrow-path', '', 'inline-block animate-spin h-8 w-8 text-islamic-green'); ?>
+                        <div id="loading-icon" class="hidden text-center text-islamic-green p-8">
+                            <?php echo get_svg_icon('arrow-path', '', 'inline-block animate-spin h-10 w-10 text-islamic-green'); ?>
                         </div>
 
-                        <ul id="results-area" class="hidden space-y-4">
+                        <ul id="results-area" class="hidden space-y-4 divide-y divide-green-100">
                         </ul>
                         </div>
 
@@ -299,11 +301,12 @@
   </nav>
 
   <template id="li-template">
-    <li class="flex flex-col">
-      <a class="flex items-center text-base text-islamic-green hover:text-islamic-green" href="#">
-        <?php echo get_svg_icon('document-text', '', 'h-5 w-5 text-islamic-green my-2'); ?>
-        <span class="title-text">نمونه مطلب #1</span>
+    <li class="flex flex-col py-3 group">
+      <a class="flex items-center text-base text-gray-700 hover:text-islamic-green transition-colors" href="#">
+        <?php echo get_svg_icon('document-text', '', 'h-5 w-5 text-islamic-green my-2 ml-3 group-hover:scale-110 transition-transform'); ?>
+        <span class="title-text font-semibold group-hover:mr-1 transition-all">نمونه مطلب #1</span>
       </a>
+      <p class="text-sm text-gray-500 mr-8 line-clamp-2 mt-1 group-hover:text-gray-700 transition-colors"></p>
     </li>
   </template>
 
