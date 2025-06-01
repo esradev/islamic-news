@@ -1,7 +1,94 @@
 <?php get_header(); ?>
 
+<?php
+// Reusable article template for grid posts
+function islamic_news_grid_article($post) {
+    ?>
+    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pt-80 pb-8 sm:pt-48 lg:pt-80 h-full">
+        <?php if ($post['has_thumb']): ?>
+            <img src="<?php echo esc_url($post['thumbnail']); ?>" alt="<?php echo esc_attr($post['title']); ?>" class="absolute inset-0 -z-10 size-full object-cover">
+        <?php else: ?>
+            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php echo esc_attr($post['title']); ?>" class="absolute inset-0 -z-10 size-full object-cover">
+        <?php endif; ?>
+        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+        <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-gray-900/10 ring-inset"></div>
+        <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm/6 text-gray-300">
+            <!-- You can add post meta here if needed -->
+        </div>
+        <h3 class="mt-3 text-lg/6 font-semibold text-white">
+            <a href="<?php echo esc_url($post['permalink']); ?>">
+                <span class="absolute inset-0"></span>
+                <?php echo esc_html($post['title']); ?>
+            </a>
+        </h3>
+        <p class="text-gray-200 mt-2"><?php echo esc_html($post['excerpt']); ?></p>
+    </article>
+    <?php
+}
+?>
+
+<!-- Slider -->
+<?php
+// Fetch last 5 posts for slider
+$slider_query = new WP_Query([
+    'posts_per_page' => 5,
+    'ignore_sticky_posts' => 1,
+]);
+$slider_posts = [];
+if ($slider_query->have_posts()) :
+    while ($slider_query->have_posts()) : $slider_query->the_post();
+        $slider_posts[] = [
+            'title' => get_the_title(),
+            'category' => get_the_category() ? get_the_category()[0]->name : '',
+            'image' => has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'large') : get_theme_file_uri('/assets/images/post-image-callback.jpg'),
+            'excerpt' => wp_trim_words(get_the_excerpt(), 20),
+            'permalink' => get_permalink(),
+        ];
+    endwhile;
+    wp_reset_postdata();
+endif;
+?>
+<script>
+    window.sliderPosts = <?php echo json_encode($slider_posts); ?>;
+</script>
+<div x-transition:enter="transition ease-out duration-600" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+    <main x-data="{ currentSlide: 0, slides: window.sliderPosts || [] }" x-init="setInterval(() => { if(slides.length) currentSlide = (currentSlide + 1) % slides.length }, 8000)">
+        <!-- Featured Slider -->
+        <div class="relative h-96 mb-8 overflow-hidden">
+            <template x-for="(slide, index) in slides" :key="index">
+                <div x-show="currentSlide === index" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 transform translate-x-full" x-transition:enter-end="opacity-100 transform translate-x-0" x-transition:leave="transition ease-in duration-500" x-transition:leave-start="opacity-100 transform translate-x-0" x-transition:leave-end="opacity-0 transform -translate-x-full" class="absolute inset-0">
+                    <a :href="slide.permalink">
+                        <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                            <div class="container mx-auto">
+                                <span class="bg-islamic-green px-3 py-1 rounded-full text-sm" x-text="slide.category"></span>
+                                <h2 class="text-3xl font-bold mt-2 mb-3" x-text="slide.title"></h2>
+                                <p class="text-lg opacity-90" x-text="slide.excerpt"></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </template>
+            <!-- Slider Controls -->
+            <button @click="currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-30">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button @click="currentSlide = (currentSlide + 1) % slides.length" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-30">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <!-- Slider Indicators -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <template x-for="(slide, index) in slides" :key="index">
+                    <button @click="currentSlide = index" :class="currentSlide === index ? 'bg-white' : 'bg-white bg-opacity-50'" class="w-3 h-3 rounded-full"></button>
+                </template>
+            </div>
+        </div>
+    </main>
+</div>
+
 <!-- Tail Grid Random Posts Header -->
-<section class="py-12">
+<section class="py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <?php
         $random_query = new WP_Query([
@@ -25,65 +112,18 @@
         ?>
         <?php if (count($posts) === 5): ?>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-            <!-- Left column: 2 small posts -->
+            <!-- Left column: 2 posts -->
             <div class="flex flex-col gap-6">
                 <?php foreach ([0,1] as $i): ?>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
-                    <a href="<?php echo esc_url($posts[$i]['permalink']); ?>">
-                        <?php if ($posts[$i]['has_thumb']): ?>
-                            <img src="<?php echo esc_url($posts[$i]['thumbnail']); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
-                        <?php else: ?>
-                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
-                        <?php endif; ?>
-                    </a>
-                    <div class="p-4 flex-1 flex flex-col">
-                        <h3 class="text-base font-bold text-gray-900 mb-1 hover:text-islamic-green transition">
-                            <a href="<?php echo esc_url($posts[$i]['permalink']); ?>"><?php echo esc_html($posts[$i]['title']); ?></a>
-                        </h3>
-                        <p class="text-gray-600 text-xs mb-2 flex-1"><?php echo esc_html($posts[$i]['excerpt']); ?></p>
-                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto"><?php echo islamic_news_read_more_text(); ?> →</a>
-                    </div>
-                </div>
+                    <?php islamic_news_grid_article($posts[$i]); ?>
                 <?php endforeach; ?>
             </div>
-            <!-- Middle column: 1 large post -->
-            <div class="flex flex-col justify-center">
-                <div class="bg-white rounded-lg shadow-xl overflow-hidden flex flex-col h-full">
-                    <a href="<?php echo esc_url($posts[2]['permalink']); ?>">
-                        <?php if ($posts[2]['has_thumb']): ?>
-                            <img src="<?php echo esc_url($posts[2]['thumbnail']); ?>" class="w-full h-64 object-cover" alt="<?php echo esc_attr($posts[2]['title']); ?>">
-                        <?php else: ?>
-                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" alt="<?php echo esc_attr($posts[2]['title']); ?>">
-                        <?php endif; ?>
-                    </a>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h2 class="text-xl font-bold text-gray-900 mb-2 hover:text-islamic-green transition">
-                            <a href="<?php echo esc_url($posts[2]['permalink']); ?>"><?php echo esc_html($posts[2]['title']); ?></a>
-                        </h2>
-                        <p class="text-gray-600 text-sm mb-4 flex-1"><?php echo esc_html($posts[2]['excerpt']); ?></p>
-                        <a href="<?php echo esc_url($posts[2]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-sm mt-auto"><?php echo islamic_news_read_more_text(); ?> →</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Right column: 2 small posts -->
+            <!-- Middle column: 1 post -->
+            <?php islamic_news_grid_article($posts[2]); ?>
+            <!-- Right column: 2 posts -->
             <div class="flex flex-col gap-6">
                 <?php foreach ([3,4] as $i): ?>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
-                    <a href="<?php echo esc_url($posts[$i]['permalink']); ?>">
-                        <?php if ($posts[$i]['has_thumb']): ?>
-                            <img src="<?php echo esc_url($posts[$i]['thumbnail']); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
-                        <?php else: ?>
-                            <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')); ?>" class="w-full h-36 object-cover" alt="<?php echo esc_attr($posts[$i]['title']); ?>">
-                        <?php endif; ?>
-                    </a>
-                    <div class="p-4 flex-1 flex flex-col">
-                        <h3 class="text-base font-bold text-gray-900 mb-1 hover:text-islamic-green transition">
-                            <a href="<?php echo esc_url($posts[$i]['permalink']); ?>"><?php echo esc_html($posts[$i]['title']); ?></a>
-                        </h3>
-                        <p class="text-gray-600 text-xs mb-2 flex-1"><?php echo esc_html($posts[$i]['excerpt']); ?></p>
-                        <a href="<?php echo esc_url($posts[$i]['permalink']); ?>" class="text-islamic-green hover:text-islamic-gold font-medium text-xs mt-auto"><?php echo islamic_news_read_more_text(); ?> →</a>
-                    </div>
-                </div>
+                    <?php islamic_news_grid_article($posts[$i]); ?>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -91,22 +131,7 @@
             <!-- fallback: simple grid if not enough posts -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 <?php foreach ($posts as $p): ?>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
-                        <a href="<?php echo esc_url($p['permalink']); ?>">
-                            <?php if ($p['has_thumb']): ?>
-                                <img src="<?php echo esc_url($p['thumbnail']); ?>" class="w-full h-48 object-cover" alt="<?php echo esc_attr($p['title']); ?>">
-                            <?php else: ?>
-                                <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/post-image-callback.jpg')) ?>" class="w-full h-48 object-cover" alt="<?php echo esc_attr($p['title']); ?>">
-                            <?php endif; ?>
-                        </a>
-                        <div class="p-5 flex flex-col flex-1">
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-islamic-green transition">
-                                <a href="<?php echo esc_url($p['permalink']); ?>"><?php echo esc_html($p['title']); ?></a>
-                            </h3>
-                            <p class="text-gray-600 text-sm mb-4 flex-1"><?php echo esc_html($p['excerpt']); ?></p>
-                            <a href="<?php echo esc_url($p['permalink']); ?>" class="mt-auto text-islamic-green hover:text-islamic-gold font-medium text-sm"><?php echo islamic_news_read_more_text(); ?> →</a>
-                        </div>
-                    </div>
+                    <?php islamic_news_grid_article($p); ?>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
