@@ -25,3 +25,13 @@
 [x-cloak] {
   display: none !important;
 }
+
+/* Islamic pattern styles */
+.islamic-pattern {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path fill="white" d="M0,0l40,0l0,40l-40,0l0,-40z M20,20l-20,0l0,-20l20,0l0,20z M20,20l0,20l-20,0l0,-20l20,0z M20,20l20,0l0,20l-20,0l0,-20z M20,20l0,-20l20,0l0,20l-20,0z M15,15l-10,0l0,-10l10,0l0,10z M15,15l0,10l-10,0l0,-10l10,0z M15,15l10,0l0,10l-10,0l0,-10z M15,15l0,-10l10,0l0,10l-10,0z M35,15l-10,0l0,-10l10,0l0,10z M35,15l0,10l-10,0l0,-10l10,0z M35,15l10,0l0,10l-10,0l0,-10z M35,15l0,-10l10,0l0,10l-10,0z M15,35l-10,0l0,-10l10,0l0,10z M15,35l0,10l-10,0l0,-10l10,0z M15,35l10,0l0,10l-10,0l0,-10z M15,35l0,-10l10,0l0,10l-10,0z M35,35l-10,0l0,-10l10,0l0,10z M35,35l0,10l-10,0l0,-10l10,0z M35,35l10,0l0,10l-10,0l0,-10z M35,35l0,-10l10,0l0,10l-10,0z"></path></svg>');
+  background-repeat: repeat;
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
