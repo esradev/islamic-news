@@ -64,7 +64,7 @@
                         <?php if (count($languages) <= 1) : ?>
                             disabled aria-disabled="true" title="نسخه دیگری از زبان وجود ندارد"
                         <?php endif; ?>
-                        class="flex items-center px-3 py-2 rounded-md border border-green-100 bg-white text-sm font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-islamic-green/30
+                        class="flex gap-x-2 items-center px-3 py-2 rounded-md border border-green-100 bg-white text-sm font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-islamic-green/30
                         <?php if (count($languages) <= 1) : ?>
                             opacity-60 cursor-not-allowed text-gray-400
                         <?php else : ?>
@@ -72,19 +72,18 @@
                         <?php endif; ?>"
                     >
                         <?php if (!empty($current_lang['country_flag_url'])): ?>
-                            <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['native_name']); ?>" class="w-5 h-5 my-2 mr-2 rounded-sm">
+                            <img src="<?php echo esc_url($current_lang['country_flag_url']); ?>" alt="<?php echo esc_attr($current_lang['language_code']); ?>" class="w-5 h-5 rounded-sm">
                         <?php endif; ?>
-                        <span><?php echo esc_html($current_lang['native_name']); ?></span>
-                        <svg class="w-4 h-4 my-1 text-islamic-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                        <span class="uppercase text-xs font-bold"><?php echo isset($current_lang['language_code']) ? esc_html($current_lang['language_code']) : esc_html(substr($current_lang['code'], 0, 2)); ?></span>
                     </button>
-                    <div id="lang-switcher-dropdown" class="absolute z-50 left-0 mt-0 pt-2 w-36 bg-white border border-green-100 rounded-md shadow-lg opacity-0 invisible transition duration-200">
+                    <div id="lang-switcher-dropdown" class="absolute z-50 left-0 mt-0 pt-2 w-auto min-w-[4rem] bg-white border border-green-100 rounded-md shadow-lg opacity-0 invisible transition duration-200">
                         <?php foreach ( $languages as $lang ) :
                             if ( !$lang['active'] ) : ?>
-                                <a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-islamic-green rounded-md transition duration-150">
+                                <a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex gap-x-2 items-center justify-center px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-islamic-green rounded-md transition duration-150">
                                     <?php if (!empty($lang['country_flag_url'])): ?>
-                                        <img src="<?php echo esc_url($lang['country_flag_url']); ?>" alt="<?php echo esc_attr($lang['native_name']); ?>" class="w-5 h-5 my-2 mr-2 rounded-sm">
+                                        <img src="<?php echo esc_url($lang['country_flag_url']); ?>" alt="<?php echo esc_attr($lang['language_code']); ?>" class="w-5 h-5 rounded-sm">
                                     <?php endif; ?>
-                                    <span><?php echo esc_html($lang['native_name']); ?></span>
+                                    <span class="uppercase text-xs font-bold"><?php echo isset($lang['language_code']) ? esc_html($lang['language_code']) : esc_html(substr($lang['code'], 0, 2)); ?></span>
                                 </a>
                             <?php endif;
                         endforeach; ?>
