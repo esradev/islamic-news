@@ -21,12 +21,16 @@
          x-data="{ 
             mobileMenuOpen: false, 
             activeDropdown: null,
+            langSwitcherOpen: false,
             toggleDropdown(id) {
                 if (this.activeDropdown === id) {
                     this.activeDropdown = null;
                 } else {
                     this.activeDropdown = id;
                 }
+            },
+            closeLangSwitcher() {
+                this.langSwitcherOpen = false;
             }
          }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
@@ -54,13 +58,15 @@
                         }
                     }
                 ?>
-                <div class="relative group" id="lang-switcher-group">
+                <div class="relative group" id="lang-switcher-group" 
+                     @click.outside="closeLangSwitcher()">
                     <button
                         id="lang-switcher-btn"
                         type="button"
                         tabindex="0"
                         aria-haspopup="true"
-                        aria-expanded="false"
+                        x-bind:aria-expanded="langSwitcherOpen"
+                        @click="langSwitcherOpen = !langSwitcherOpen"
                         <?php if (count($languages) <= 1) : ?>
                             disabled aria-disabled="true" title="نسخه دیگری از زبان وجود ندارد"
                         <?php endif; ?>
@@ -76,7 +82,16 @@
                         <?php endif; ?>
                         <span class="uppercase text-xs font-bold"><?php echo isset($current_lang['language_code']) ? esc_html($current_lang['language_code']) : esc_html(substr($current_lang['code'], 0, 2)); ?></span>
                     </button>
-                    <div id="lang-switcher-dropdown" class="absolute z-50 left-0 mt-0 pt-2 w-auto min-w-[4rem] bg-white border border-green-100 rounded-md shadow-lg opacity-0 invisible transition duration-200">
+                    <div id="lang-switcher-dropdown" 
+                         x-show="langSwitcherOpen"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform scale-95"
+                         x-transition:enter-end="opacity-100 transform scale-100"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform scale-100"
+                         x-transition:leave-end="opacity-0 transform scale-95"
+                         class="absolute z-50 left-0 mt-0 pt-2 w-auto min-w-[4rem] bg-white border border-green-100 rounded-md shadow-lg"
+                         x-cloak>
                         <?php foreach ( $languages as $lang ) :
                             if ( !$lang['active'] ) : ?>
                                 <a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex gap-x-2 items-center justify-center px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-islamic-green rounded-md transition duration-150">
@@ -311,32 +326,5 @@
   </template>
 
   <script>
-  // Language Switcher Dropdown Toggle
-  (function() {
-    const btn = document.getElementById('lang-switcher-btn');
-    const dropdown = document.getElementById('lang-switcher-dropdown');
-    if (btn && dropdown) {
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const isOpen = dropdown.classList.contains('opacity-100');
-        if (isOpen) {
-          dropdown.classList.remove('opacity-100', 'visible');
-          dropdown.classList.add('opacity-0', 'invisible');
-          btn.setAttribute('aria-expanded', 'false');
-        } else {
-          dropdown.classList.remove('opacity-0', 'invisible');
-          dropdown.classList.add('opacity-100', 'visible');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-      // Close dropdown when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
-          dropdown.classList.remove('opacity-100', 'visible');
-          dropdown.classList.add('opacity-0', 'invisible');
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-  })();
+  // Alpine.js handles the language switcher now - removed vanilla JS implementation
   </script>
