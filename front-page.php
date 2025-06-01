@@ -72,10 +72,10 @@ endif;
             </template>
             <!-- Slider Controls -->
             <button @click="currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-30">
-                <?php echo get_svg_icon('chevron-left', '', 'h-6 w-6 text-islamic-green'); ?>
+                <?php echo get_svg_icon('chevron-left', '', 'h-6 w-6 text-gray-100'); ?>
             </button>
             <button @click="currentSlide = (currentSlide + 1) % slides.length" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-30">
-                <?php echo get_svg_icon('chevron-right', '', 'h-6 w-6 text-islamic-green'); ?>
+                <?php echo get_svg_icon('chevron-right', '', 'h-6 w-6 text-gray-100'); ?>
             </button>
             <!-- Slider Indicators -->
             <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
