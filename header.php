@@ -17,7 +17,7 @@
 </head>
 <body class="bg-gray-50 text-gray-900 text-right dir-rtl" <?php body_class(); ?>>
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <nav class="bg-white shadow-lg sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div class="flex justify-between items-center h-16 flex-row-reverse">
             <!-- Search button End -->
@@ -90,12 +90,16 @@
                     <div class="flex items-center md:hidden">
                         <button id="mobile-menu-button" type="button"
                                 class="text-gray-700 hover:text-islamic-green focus:outline-none focus:text-islamic-green"
-                                aria-controls="mobile-menu" aria-expanded="false">
+                                aria-controls="mobile-menu" 
+                                aria-expanded="false"
+                                @click="mobileMenuOpen = !mobileMenuOpen">
                                 <span class="sr-only">Open main menu</span>
-                                <?php 
-                                echo get_svg_icon('bars-3', 'mobile-menu-open-icon', 'h-6 w-6');
-                                echo get_svg_icon('x-circle', 'mobile-menu-close-icon', 'h-6 w-6 hidden');
-                                ?>
+                                <span x-show="!mobileMenuOpen" x-cloak>
+                                    <?php echo get_svg_icon('bars-3', 'mobile-menu-open-icon', 'h-6 w-6'); ?>
+                                </span>
+                                <span x-show="mobileMenuOpen" x-cloak>
+                                    <?php echo get_svg_icon('x-circle', 'mobile-menu-close-icon', 'h-6 w-6'); ?>
+                                </span>
                         </button>
                     </div>
 
@@ -209,7 +213,15 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="md:hidden hidden" id="mobile-menu">
+    <div class="md:hidden overflow-y-auto max-h-[80vh]" 
+         id="mobile-menu" 
+         x-show="mobileMenuOpen" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 transform scale-95"
+         x-transition:enter-end="opacity-100 transform scale-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 transform scale-100"
+         x-transition:leave-end="opacity-0 transform scale-95">
       <div class="space-y-1 pb-3 pt-2">
         <?php
         foreach ($menu as $item) {

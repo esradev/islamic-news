@@ -72,10 +72,10 @@ endif;
             </template>
             <!-- Slider Controls -->
             <button @click="currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-30">
-                <i class="fas fa-chevron-left"></i>
+                <?php echo get_svg_icon('chevron-left', '', 'h-6 w-6 text-islamic-green'); ?>
             </button>
             <button @click="currentSlide = (currentSlide + 1) % slides.length" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-30">
-                <i class="fas fa-chevron-right"></i>
+                <?php echo get_svg_icon('chevron-right', '', 'h-6 w-6 text-islamic-green'); ?>
             </button>
             <!-- Slider Indicators -->
             <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
@@ -153,7 +153,7 @@ endif;
                 ]);
                 foreach ($categories as $cat) : ?>
                     <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>"
-                       class="bg-gray-200 text-gray-700 hover:bg-islamic-green hover:text-white px-4 py-2 rounded-full text-sm font-medium transition duration-300<?php if (is_category($cat->term_id)) echo ' bg-islamic-green text-white'; ?>">
+                       class="text-gray-700 hover:bg-islamic-green hover:text-white px-4 py-2 rounded-full text-sm font-medium transition duration-300<?php if (is_category($cat->term_id)) echo ' bg-islamic-green text-white'; ?>">
                         <?php echo esc_html($cat->name); ?>
                     </a>
                 <?php endforeach; ?>
