@@ -17,7 +17,18 @@
 </head>
 <body class="bg-gray-50 text-gray-900 text-right dir-rtl" <?php body_class(); ?>>
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+    <nav class="bg-white shadow-lg sticky top-0 z-50" 
+         x-data="{ 
+            mobileMenuOpen: false, 
+            activeDropdown: null,
+            toggleDropdown(id) {
+                if (this.activeDropdown === id) {
+                    this.activeDropdown = null;
+                } else {
+                    this.activeDropdown = id;
+                }
+            }
+         }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div class="flex justify-between items-center h-16 flex-row-reverse">
             <!-- Search button End -->
@@ -115,7 +126,14 @@
                         function output_submenu_items($submenu_items, $parent_id)
                         {
                         if (isset($submenu_items[$parent_id])) {
-                            echo '<div id="dropdown-menu-' . $parent_id . '" class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" tabindex="-1">';
+                            echo '<div id="dropdown-menu-' . $parent_id . '" 
+                                  x-show="activeDropdown == ' . $parent_id . '" 
+                                  x-transition 
+                                  @click.outside="if (!$event.target.closest(\'[id^=menu-button-]\')) activeDropdown = null" 
+                                  class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
+                                  role="menu" 
+                                  tabindex="-1" 
+                                  x-cloak>';
                             foreach ($submenu_items[$parent_id] as $submenu_item) {
                             echo '<a href="' . $submenu_item->url . '" class="text-gray-800 block p-3 text-sm" role="menuitem" tabindex="-1">' . $submenu_item->title . '</a>';
                             // Check if the submenu item has further submenu items
@@ -153,7 +171,12 @@
 
                             // Output as button only if it has submenu items
                             if ($has_submenu) {
-                            echo '<button type="button" id="menu-button-' . $item->ID . '" aria-expanded="false" aria-haspopup="true" class="inline-flex w-full justify-center gap-x-1.5 bg-white px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 text-gray-700 hover:text-islamic-green px-3 py-2 rounded-md text-sm font-medium">' . $item->title . '<svg class="-my-1 h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></button>';
+                            echo '<button type="button" 
+                                  id="menu-button-' . $item->ID . '" 
+                                  @click="toggleDropdown(' . $item->ID . ')" 
+                                  :aria-expanded="activeDropdown == ' . $item->ID . ' ? \'true\' : \'false\'" 
+                                  aria-haspopup="true" 
+                                  class="inline-flex w-full justify-center gap-x-1.5 bg-white px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 text-gray-700 hover:text-islamic-green px-3 py-2 rounded-md text-sm font-medium">' . $item->title . '<svg class="-my-1 h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></button>';
                             } else {
                             echo '<a href="' . $item->url . '" class="inline-flex w-full justify-center gap-x-1.5 bg-white px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 text-gray-700 hover:text-islamic-green px-3 py-2 rounded-md text-sm font-medium">' . $item->title . '</a>';
                             }
